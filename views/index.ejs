@@ -3,6 +3,7 @@
   <ul>
     <li><a href='#' class='index'>All Links</a></li>
     <li><a href='#' class='create'>Shorten</a></li>
+    <li><a href='#' class='login'>Log in</a></li>
   </ul>
   </div>
   <div id='container'></div>
@@ -29,6 +30,26 @@
   <div class='message'></div>
 </script>
 
+<script id='login' type='text/x-handlebars-template'>
+<h2>Login</h2>
+<form action="/login" method="post">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" type="text" name="username">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" type="password" name="password">
+    </div>
+    <div>
+      <input type="submit" value="Login">
+    </div>
+</form>
+<p>
+  <a href="/signup">Create an Account &rarr;</a>
+<p>
+</script>
+
 <script>
   $(function(){
     new Shortly();
@@ -36,6 +57,7 @@
 
   window.Templates = {};
   $('[type="text/x-handlebars-template"]').each(function(index, div){
+    console.log('templating', div.id);
     Templates[div.id] = Handlebars.compile(div.innerHTML);
   });
 </script>
@@ -46,4 +68,5 @@
 <script src='/client/linkView.js'></script>
 <script src='/client/linksView.js'></script>
 <script src='/client/createLinkView.js'></script>
+<script src='/client/loginView.js'></script>
 <script src='/client/router.js'></script>
