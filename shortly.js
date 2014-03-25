@@ -9,6 +9,8 @@ var Links = require('./app/collections/links');
 var Link = require('./app/models/link');
 var Click = require('./app/models/click');
 
+var crypto = require('crypto');
+
 var app = express();
 
 app.configure(function() {
@@ -20,14 +22,20 @@ app.configure(function() {
 });
 
 app.get('/', function(req, res) {
+  console.log('initial get');
   res.render('index');
 });
 
 app.get('/create', function(req, res) {
+  console.log('shorten get');
   res.render('index');
 });
 
 app.get('/links', function(req, res) {
+  //check if the user is logged in
+    //continue
+  //else 
+    //redirect to login page
   Links.reset().fetch().then(function(links) {
     res.send(200, links.models);
   })
@@ -69,7 +77,25 @@ app.post('/links', function(req, res) {
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
+app.post('/signup', function(req, res) {
+  
+  cipher = crypto.createCipher('aes-256-cbc', 'salt');
+  cipher.update(req.body.password, 'utf8', 'base64');
+  var encryptedPassword = cipher.final('base64');
 
+  console.log(req.body);
+  var user = new User({
+    username: req.body.username, 
+    password: encryptedPassword
+  });
+
+  user.save().then(function(newUser) {
+    console.log(newUser);
+    Users.add(newUser);
+    res.redirect(302, 'http://localhost:4568/');
+  });
+  
+});
 
 
 /************************************************************/
