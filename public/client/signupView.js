@@ -1,7 +1,7 @@
-Shortly.loginView = Backbone.View.extend({
+Shortly.signupView = Backbone.View.extend({
 
 
-  template: Templates['login'],
+  template: Templates['signup'],
 
   render: function() {
     this.$el.html( this.template() );
@@ -9,3 +9,5 @@ Shortly.loginView = Backbone.View.extend({
   },
 
 });
+
+
