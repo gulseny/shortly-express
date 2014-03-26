@@ -31,11 +31,17 @@ app.get('/create', function(req, res) {
   res.render('index');
 });
 
+app.get('/login', function(req, res) {
+  console.log('login get');
+  res.render('login');
+});
+
+app.get('/signup', function(req, res) {
+  console.log('login get');
+  res.render('signup');
+});
+
 app.get('/links', function(req, res) {
-  //check if the user is logged in
-    //continue
-  //else 
-    //redirect to login page
   Links.reset().fetch().then(function(links) {
     res.send(200, links.models);
   })
@@ -94,6 +100,10 @@ app.post('/signup', function(req, res) {
     Users.add(newUser);
     res.redirect(302, 'http://localhost:4568/');
   });
+  
+});
+
+app.post('/login', function(req, res) {
   
 });
 
